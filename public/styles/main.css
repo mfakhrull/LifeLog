@@ -1,0 +1,143 @@
+body {
+  margin: 0;
+  font-family: "Poppins";
+  background: linear-gradient(180deg, #fff 27.92%, #d8f1fc 100%);
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+
+p {
+  font-family: Poppins;
+  font-size: 16px;
+}
+
+/* Nav */
+nav {
+  margin: 4em;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: end;
+  gap: 1.5rem;
+  margin: 0;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: black;
+  /* text-transform: uppercase; */
+  font-size: 1rem;
+  position: relative;
+}
+
+nav ul li a.active:before {
+  position: absolute;
+  content: "";
+  width: 35%;
+  height: 1px;
+  border-bottom: 2px solid black;
+  bottom: -6px;
+}
+
+nav ul li a:before {
+  position: absolute;
+  content: "";
+  width: 0%;
+  height: 1px;
+  border-bottom: 2px solid rgb(122, 122, 122);
+  bottom: -6px;
+  transition: width 0.3s;
+}
+
+/* Main Card */
+.main-card {
+
+  border-radius: 28px;
+  border: 1px solid rgba(178, 178, 178, 0.2);
+  background: linear-gradient(
+    180deg,
+    rgba(251, 251, 251, 0.4) 72.19%,
+    rgba(216, 241, 252, 0) 100%
+  );
+  box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12.5px);
+}
+
+.journal-date {
+  color: #b2b2b2;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+
+.title-input {
+  background: #f9fcfd;
+}
+
+.entry-textarea {
+  width: 94%;
+  background: #f9fcfd;
+}
+
+/* Main Card Journal Page */
+.journal-label {
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.gradient-line {
+  width: 760px;
+  height: 1px;
+  background: linear-gradient(90deg, #b2b2b2 69.06%, #dbdee0 100%);
+  margin: 30px auto 0px;
+
+}
+
+
+/* Footer */
+footer {
+    padding: 20px 0;
+    background-color: transparent;
+    border-top: 1px solid #e7e7e7; /* Slight border at the top of the footer */
+  }
+  
+  footer a {
+    color: #333; /* Darker text color for links */
+    text-decoration: none; /* No underline for links */
+    margin: 0 10px; /* Spacing between links */
+  }
+  
+  footer a:hover {
+    text-decoration: underline; /* Underline links when hovered */
+  }
+  
+  footer p {
+    margin: 0; /* Remove default paragraph margin */
+  }
+  
+
+/* Button */
+.custom-btn-color {
+  background-color: #7ed8ff;
+  color: white;
+  border: none; /* Removes default border */
+}
+
+.custom-btn-color:hover {
+  background-color: #6cb9da;
+  color: white;
+  border: none;
+}
+
+/* Microinteractions */
+
+nav ul li a:hover:before {
+  width: 35%;
+}
