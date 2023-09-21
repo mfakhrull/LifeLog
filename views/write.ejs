@@ -94,5 +94,55 @@
           </div>
         </div>
       </footer>
+
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+      <script>
+document.querySelector("form").addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const data = {
+        newJournalTitle: document.querySelector("input[name='newJournalTitle']").value,
+        newJournalEntry: document.querySelector("textarea[name='newJournalEntry']").value
+    };
+    
+    fetch('/submitJournal', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire(
+              'Success',
+              'Your journal has been saved!',
+              'success'
+            ).then(() => {
+                window.location.reload();
+            });
+        } else {
+            Swal.fire(
+              'Error',
+              'There was an issue saving your journal.',
+              'error'
+            );
+        }
+    })
+    .catch(error => {
+        Swal.fire(
+          'Error',
+          'There was an error processing your request.',
+          'error'
+        );
+    });
+});
+
+
+
+
+      </script>
   </body>
 </html>

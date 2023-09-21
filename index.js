@@ -61,12 +61,13 @@ app.post("/submitJournal", async (req, res) => {
 
   try {
     await newJournal.save();
-    res.redirect("/write");
+    res.json({ success: true });
   } catch (error) {
-    console.log("An error occurred while saving the task:", error);
-    res.redirect("/write");
+    console.log("An error occurred while saving the journal:", error);
+    res.json({ success: false });
   }
 });
+
 
 // Connect to the database before listening
 connectDB().then(() => {
