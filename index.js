@@ -28,7 +28,9 @@ async function connectDB() {
 }
 
 
-
+app.get("/", (req, res) => {
+  res.redirect("/write");
+});
 
 app.get("/write", async (req, res) => {
   try {
