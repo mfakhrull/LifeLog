@@ -13,8 +13,6 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Establish a MongoDB connection with Mongoose
-//await mongoose.connect("mongodb://127.0.0.1:27017/lifelogDB", {
 
 async function connectDB() {
   try {
@@ -25,21 +23,16 @@ async function connectDB() {
       console.log("Successfully connected to the database!");
   } catch (error) {
       console.error("Error connecting to the database:", error.message);
-      // Exit the process with a failure code
       process.exit(1);
   }
 }
 
-// Call the function to establish a connection
-connectDB();
 
 
-
-// Get current date
-const currentTime = dayjs().format("DD-MM-YYYY"); // e.g., "18-09-2023"
 
 app.get("/write", async (req, res) => {
   try {
+    const currentTime = dayjs().format("DD-MM-YYYY");
     res.render("write.ejs",{ currentTime: currentTime });
   } catch (error) {
     console.log(error);
@@ -57,6 +50,7 @@ app.get("/journal", async (req, res) => {
 
 // SUBMIT JOURNAL
 app.post("/submitJournal", async (req, res) => {
+  const currentTime = dayjs().format("DD-MM-YYYY");
   const newJournal = new Journal({
     title: req.body.newJournalTitle,
     journal: req.body.newJournalEntry,
@@ -72,6 +66,10 @@ app.post("/submitJournal", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+// Connect to the database before listening
+connectDB().then(() => {
+  app.listen(PORT, () => {
+      console.log(`Listening on port ${PORT}`);
+  });
 });
+
