@@ -1,10 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import 'dotenv/config'
 import dayjs from "dayjs";
+import Journal from './models/journals.js';
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -12,19 +14,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Establish a MongoDB connection with Mongoose
-mongoose.connect("mongodb://127.0.0.1:27017/lifelogDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+//await mongoose.connect("mongodb://127.0.0.1:27017/lifelogDB", {
 
-// Create a Mongoose Schema and Model for tasks
-const journalSchema = new mongoose.Schema({
-  title: String,
-  journal: String,
-  date: String,
-});
+async function connectDB() {
+  try {
+      await mongoose.connect(process.env.MONGO_URI, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+      });
+      console.log("Successfully connected to the database!");
+  } catch (error) {
+      console.error("Error connecting to the database:", error.message);
+      // Exit the process with a failure code
+      process.exit(1);
+  }
+}
 
-const Journal = mongoose.model("Journal", journalSchema);
+// Call the function to establish a connection
+connectDB();
+
+
 
 // Get current date
 const currentTime = dayjs().format("DD-MM-YYYY"); // e.g., "18-09-2023"
@@ -63,6 +72,6 @@ app.post("/submitJournal", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
